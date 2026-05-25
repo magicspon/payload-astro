@@ -1,0 +1,9 @@
+---
+import { THeroProps, Hero as HeroClient } from '.'
+
+type Props = THeroProps
+
+const props = Astro.props
+---
+
+<HeroClient {...props} />

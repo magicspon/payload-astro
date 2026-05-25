@@ -1,0 +1,6 @@
+{
+  "plugins": ["react", "unicorn", "typescript", "oxc"],
+  "rules": {
+    "typescript/triple-slash-reference": "off"
+  }
+}

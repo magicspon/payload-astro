@@ -1,0 +1,7 @@
+@layer components {
+	.input::-webkit-inner-spin-button,
+	.input::-webkit-calendar-picker-indicator {
+		display: none;
+		appearance: none;
+	}
+}

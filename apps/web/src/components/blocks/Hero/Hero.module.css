@@ -1,0 +1,22 @@
+@layer components {
+	.container {
+		background-color: var(--color-background);
+		color: var(--color-foreground);
+		padding-block: calc(var(--spacing) * 8 + var(--header-height))
+			calc(var(--spacing) * 8);
+		padding-inline: calc(var(--spacing) * 8);
+	}
+
+	.copy *:has(+ .buttons) {
+		margin-block-end: calc(var(--spacing) * 8);
+	}
+
+	.buttons {
+		gap: calc(var(--spacing) * 5);
+		flex-wrap: wrap;
+	}
+
+	.title:has(+ .copy) {
+		margin-block-end: calc(var(--spacing) * 8);
+	}
+}

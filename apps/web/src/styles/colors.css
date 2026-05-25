@@ -1,0 +1,110 @@
+@layer components {
+	[data-theme='light'] {
+		--color-background: var(--color-neutral-1);
+		--color-foreground: var(--color-neutral-12);
+		--color-card: var(--color-neutral-1);
+		--color-card-foreground: var(--color-neutral-12);
+		--color-popover: var(--color-neutral-1);
+		--color-popover-foreground: var(--color-neutral-12);
+		--color-primary: var(--color-blue-5);
+		--color-primary-foreground: var(--color-blue-1);
+		--color-secondary: var(--color-neutral-3);
+		--color-secondary-foreground: var(--color-neutral-11);
+		--color-muted: var(--color-neutral-3);
+		--color-muted-foreground: var(--color-neutral-9);
+		--color-accent: var(--color-neutral-3);
+		--color-accent-foreground: var(--color-neutral-11);
+		--color-destructive: var(--color-red-4);
+		--color-border: var(--color-neutral-4);
+		--color-input: var(--color-neutral-4);
+		--color-ring: var(--color-neutral-8);
+	}
+
+	[data-theme='dark'] {
+		--color-background: var(--color-neutral-12);
+		--color-foreground: var(--color-neutral-1);
+		--color-card: var(--color-neutral-11);
+		--color-card-foreground: var(--color-neutral-1);
+		--color-popover: var(--color-neutral-11);
+		--color-popover-foreground: var(--color-neutral-1);
+		--color-primary: var(--color-teal-1);
+		--color-primary-foreground: var(--color-neutral-12);
+		--color-secondary: var(--color-neutral-10);
+		--color-secondary-foreground: var(--color-neutral-1);
+		--color-muted: var(--color-neutral-10);
+		--color-muted-foreground: var(--color-neutral-8);
+		--color-accent: var(--color-neutral-9);
+		--color-accent-foreground: var(--color-neutral-1);
+		--color-destructive: var(--color-red-3);
+		--color-destructive-foreground: var(--color-neutral-1);
+		--color-border: oklch(from var(--neutral-10) l c h / 40%);
+		--color-input: oklch(from var(--neutral-10) l c h / 50%);
+		--color-ring: var(--color-neutral-8);
+	}
+
+	[data-theme='primary'] {
+		--color-background: var(--color-blue-5);
+		--color-foreground: var(--color-blue-1);
+		--color-card: var(--color-blue-4);
+		--color-card-foreground: var(--color-blue-1);
+		--color-popover: var(--color-blue-4);
+		--color-popover-foreground: var(--color-blue-1);
+		--color-primary: var(--color-blue-1);
+		--color-primary-foreground: var(--color-blue-5);
+		--color-secondary: var(--color-blue-3);
+		--color-secondary-foreground: var(--color-blue-1);
+		--color-muted: var(--color-blue-6);
+		--color-muted-foreground: var(--color-blue-2);
+		--color-accent: var(--color-blue-2);
+		--color-accent-foreground: var(--color-blue-12);
+		--color-destructive: var(--color-red-3);
+		--color-destructive-foreground: var(--color-neutral-1);
+		--color-border: oklch(from var(--blue-3) l c h / 35%);
+		--color-input: oklch(from var(--blue-3) l c h / 45%);
+		--color-ring: var(--color-blue-1);
+	}
+
+	[data-theme='secondary'] {
+		--color-background: var(--color-teal-5);
+		--color-foreground: var(--color-teal-1);
+		--color-card: var(--color-teal-5);
+		--color-card-foreground: var(--color-teal-1);
+		--color-popover: var(--color-teal-4);
+		--color-popover-foreground: var(--color-teal-1);
+		--color-primary: var(--color-teal-1);
+		--color-primary-foreground: var(--color-teal-5);
+		--color-secondary: var(--color-teal-4);
+		--color-secondary-foreground: var(--color-teal-1);
+		--color-muted: var(--color-teal-6);
+		--color-muted-foreground: var(--color-teal-2);
+		--color-accent: var(--color-teal-4);
+		--color-accent-foreground: var(--color-teal-12);
+		--color-destructive: var(--color-red-3);
+		--color-destructive-foreground: var(--color-teal-1);
+		--color-border: oklch(from var(--teal-4) l c h / 35%);
+		--color-input: oklch(from var(--teal-4) l c h / 45%);
+		--color-ring: var(--color-teal-1);
+	}
+
+	[data-theme='tertiary'] {
+		--color-background: var(--color-red-4);
+		--color-foreground: var(--color-red-1);
+		--color-card: var(--color-red-3);
+		--color-card-foreground: var(--color-red-1);
+		--color-popover: var(--color-red-3);
+		--color-popover-foreground: var(--color-red-1);
+		--color-primary: var(--color-red-1);
+		--color-primary-foreground: var(--color-red-4);
+		--color-secondary: var(--color-red-2);
+		--color-secondary-foreground: var(--color-red-1);
+		--color-muted: var(--color-red-5);
+		--color-muted-foreground: var(--color-red-1);
+		--color-accent: var(--color-red-2);
+		--color-accent-foreground: var(--color-red-11);
+		--color-destructive: var(--color-red-2);
+		--color-destructive-foreground: var(--color-red-1);
+		--color-border: oklch(from var(--red-2) l c h / 35%);
+		--color-input: oklch(from var(--red-2) l c h / 45%);
+		--color-ring: var(--color-red-1);
+	}
+}

@@ -1,0 +1,18 @@
+@layer components {
+	.main {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		position: relative;
+		overflow-x: clip;
+
+		/* tablet */
+		@media screen and (width >= 48rem) {
+			&:has([data-component='sidebar']) {
+				display: grid;
+				align-items: start;
+				grid-template-columns: var(--sidebar-width) 1fr;
+			}
+		}
+	}
+}

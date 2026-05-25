@@ -1,0 +1,9 @@
+/* Convenience barrel — imports all shared Spring CSS.
+   Import individual files instead if you need finer control:
+     @import '@spring/tailwind-config/reset.css'
+     @import '@spring/tailwind-config/tokens.css'
+     @import '@spring/tailwind-config/mq-debugger.css'
+*/
+
+@import './reset.css';
+@import './tokens.css';

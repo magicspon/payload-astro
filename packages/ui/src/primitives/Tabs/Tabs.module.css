@@ -1,0 +1,104 @@
+@layer components {
+	.tabs {
+		display: flex;
+		flex-direction: column;
+		gap: calc(var(--spacing) * 4);
+
+		&[data-horizontal] {
+			flex-direction: column;
+		}
+	}
+
+	.tabsList {
+		display: flex;
+		width: fit-content;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-muted-foreground);
+
+		.tabs[data-vertical] & {
+			height: fit-content;
+			flex-direction: column;
+		}
+
+		&[data-variant='line'] {
+			border-radius: 0;
+		}
+	}
+
+	.tabsListDefault {
+		background-color: var(--color-muted);
+	}
+
+	.tabsListLine {
+		gap: var(--spacing);
+		background-color: transparent;
+	}
+
+	.tabsTrigger {
+		position: relative;
+		display: inline-flex;
+		flex: 1 1 0%;
+		align-items: center;
+		justify-content: center;
+		gap: calc(var(--spacing) * 1.5);
+		padding-inline: calc(var(--spacing) * 4);
+		padding-block: calc(var(--spacing) * 2);
+		font-size: var(--text-base);
+		line-height: var(--text-sm--line-height);
+		font-weight: 500;
+		white-space: nowrap;
+		color: color-mix(in oklch, var(--color-foreground) 60%, transparent);
+		transition: all 150ms;
+		border-bottom: 2px solid transparent;
+
+		.tabs[data-vertical] & {
+			width: 100%;
+			justify-content: flex-start;
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--color-foreground);
+			}
+		}
+
+		&:disabled,
+		&[aria-disabled='true'] {
+			pointer-events: none;
+			opacity: 0.5;
+		}
+
+		&:has([data-icon='inline-end']) {
+			padding-right: var(--spacing);
+		}
+
+		&:has([data-icon='inline-start']) {
+			padding-left: var(--spacing);
+		}
+
+		&[aria-selected='true'] {
+			border-bottom: 2px solid var(--color-primary);
+		}
+
+		.tabsList[data-variant='line'] & {
+			background-color: transparent;
+
+			&[aria-selected='true'] {
+				background-color: transparent;
+				box-shadow: none;
+			}
+		}
+
+		.tabsList[data-variant='line'] &[aria-selected='true']::after {
+			opacity: 1;
+		}
+	}
+
+	.tabsContent {
+		flex: 1 1 0%;
+		font-size: var(--text-sm);
+		line-height: var(--text-sm--line-height);
+		outline: none;
+	}
+}

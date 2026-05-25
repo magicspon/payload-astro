@@ -1,0 +1,145 @@
+/* THeader.module.css */
+@layer components {
+	.header {
+		--inline-spacing: calc(var(--spacing) * 5);
+
+		isolation: isolate;
+		z-index: var(--z-100);
+		padding-inline: calc(var(--spacing) * 5);
+		height: var(--header-height);
+		display: flex;
+		align-items: center;
+		gap: calc(var(--spacing) * 5);
+		position: fixed;
+		width: 100%;
+		left: 0;
+		top: 0;
+		transform: translateZ(0);
+		background-color: var(--color-background);
+
+		& + main {
+			padding-block-start: var(--header-height);
+		}
+	}
+
+	.logo {
+		font-weight: 900;
+		font-size: var(--text-xl);
+		flex-basis: 0;
+		flex-grow: 1;
+	}
+
+	.nav {
+		display: none;
+
+		@media screen and (width >= 64rem) {
+			display: flex;
+			gap: calc(var(--spacing) * 4);
+			flex: 1;
+			place-content: center;
+		}
+	}
+
+	.contact {
+		flex-basis: 0;
+		flex-grow: 1;
+		display: flex;
+		justify-content: end;
+	}
+
+	.burger {
+		display: block;
+		margin-inline-start: auto;
+
+		@media screen and (width >= 64rem) {
+			display: none;
+		}
+
+		&:has(+ :popover-open) {
+			color: blue;
+		}
+	}
+
+	.dialog {
+		width: 100%;
+		min-height: 100dvh;
+		overflow: auto;
+		max-width: 30rem;
+		margin-inline-start: auto;
+		animation: fade-out 200ms ease forwards;
+		transition:
+			overlay 200ms allow-discrete,
+			display 200ms allow-discrete;
+
+		@starting-style {
+			opacity: 0;
+			transform: translateX(100%);
+		}
+
+		&:popover-open {
+			animation: fade-in 200ms ease forwards;
+		}
+
+		&::backdrop {
+			animation: backdrop-out 200ms ease forwards;
+		}
+
+		&:popover-open::backdrop {
+			animation: backdrop-in 200ms ease forwards;
+		}
+	}
+
+	.dialog__wrapper {
+		display: flex;
+		padding-inline: var(--inline-spacing);
+		padding-block-start: calc(var(--spacing) * 3);
+	}
+
+	.dialog__close {
+		margin-inline-start: auto;
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+}
+
+@keyframes backdrop-in {
+	from {
+		background: rgb(0 0 0 / 0%);
+	}
+
+	to {
+		background: rgb(0 0 0 / 40%);
+	}
+}
+
+@keyframes backdrop-out {
+	from {
+		background: rgb(0 0 0 / 40%);
+	}
+
+	to {
+		background: rgb(0 0 0 / 0%);
+	}
+}

@@ -1,0 +1,25 @@
+---
+import { BlockProps } from '~/types'
+import TextBlock from './TextBlock/TextBlock.astro'
+import { match } from 'ts-pattern'
+import Hero from './Hero/Hero.astro'
+
+interface Props {
+	blocks: BlockProps
+}
+
+const { blocks } = Astro.props
+---
+
+<>
+	{
+		blocks?.map((block) => (
+			<>
+				{match(block)
+					.with({ blockType: 'hero' }, (props) => <Hero {...props} />)
+					.with({ blockType: 'textBlock' }, (props) => <TextBlock {...props} />)
+					.otherwise((props) => console.warn('[block not found]'))}
+			</>
+		))
+	}
+</>

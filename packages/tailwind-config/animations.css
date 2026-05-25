@@ -1,0 +1,56 @@
+@theme inline {
+	--animate-from-to: from-to var(--animation-duration, 300ms)
+		var(--animation-easing, ease-in-out);
+	--animate-from-to-scale: from-to-scale var(--animation-duration, 300ms)
+		var(--animation-easing, ease-in-out);
+	--animate-from-to-opacity: from-to-opacity var(--animation-duration, 300ms)
+		var(--animation-easing, ease-in-out);
+	--animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+	@keyframes from-to {
+		from {
+			opacity: var(--from-opacity);
+			scale: var(--from-scale);
+			translate: var(--from-position);
+		}
+
+		to {
+			opacity: var(--to-opacity);
+			scale: var(--to-scale);
+			translate: var(--to-position);
+		}
+	}
+
+	@keyframes from-to-scale {
+		from {
+			opacity: var(--from-opacity);
+			scale: var(--from-scale);
+		}
+
+		to {
+			opacity: var(--to-opacity);
+			scale: var(--to-scale);
+		}
+	}
+
+	@keyframes from-to-opacity {
+		from {
+			opacity: var(--from-opacity);
+		}
+
+		to {
+			opacity: var(--to-opacity);
+		}
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+
+		50% {
+			opacity: 0.5;
+		}
+	}
+}

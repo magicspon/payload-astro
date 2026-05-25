@@ -1,0 +1,10 @@
+import { expect, it, describe, vi } from 'vitest'
+import * as Fn from './{{ camelCase func }}'
+
+describe('{{ camelCase func }}', async () => {
+  it('should be invoked', async () => {
+    const getLegsSpy = vi.spyOn(Fn, '{{ camelCase func }}')
+    Fn.{{ camelCase func }}({})
+    expect(getLegsSpy).toHaveBeenCalled()
+  })
+})

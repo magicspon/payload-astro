@@ -1,0 +1,20 @@
+import * as React from 'react'
+
+type T{{ pascalCase func }}Context = {
+	//
+}
+
+const {{ pascalCase func }}Context = React.createContext<T{{ pascalCase func }}Context>(null!)
+
+export function use{{ pascalCase func }}Context() {
+	return React.useContext({{ pascalCase func }}Context)
+}
+
+type T{{ pascalCase func }}Props = {
+	children: React.ReactNode
+}
+
+export function Provider({ children }: T{{ pascalCase func }}Props) {
+	const value = ''
+	return <{{ pascalCase func }}Context.Provider value={value}>{children}</{{ pascalCase func }}Context.Provider>
+}

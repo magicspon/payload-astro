@@ -1,0 +1,39 @@
+---
+import type { Page } from '@spon/payload-types'
+import { match } from 'ts-pattern'
+import Blocks from '~/components/blocks/Blocks.astro'
+import PageListing from '~/components/listing/PageListing/PageListing.astro'
+import PostListing from '~/components/listing/PostListing/PostListing.astro'
+import { BlockProps } from '~/types'
+import { parseListing } from '~/utils/parseListing'
+import type { DangerouslyExpandRelations } from '~/utils/typeHelpers'
+
+type Listing = NonNullable<DangerouslyExpandRelations<Page>['listing']>
+type Blocks = DangerouslyExpandRelations<Page>['blocks']
+
+type Props = {
+	blocks?: BlockProps
+} & Listing
+const { blocks, footer, list, items } = Astro.props
+const feed = parseListing({ list, items })
+---
+
+<>
+	{blocks && <Blocks blocks={blocks} />}
+	<>
+		{
+			match(feed)
+				.with({ list: 'children' }, (props) => (
+					<PageListing type="children" entries={props.entries} />
+				))
+				.with({ list: 'pages' }, (props) => (
+					<PageListing type="pages" entries={props.entries} />
+				))
+				.with({ list: 'posts' }, (props) => (
+					<PostListing entries={props.entries} />
+				))
+				.otherwise((props) => console.warn('[block not found]'))
+		}
+	</>
+	{footer && <Blocks blocks={footer} />}
+</>

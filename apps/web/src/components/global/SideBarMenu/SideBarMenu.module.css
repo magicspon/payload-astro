@@ -1,0 +1,31 @@
+/* TSideBarMenu.module.css */
+
+@layer components {
+	.sidebar {
+		padding-inline: calc(var(--spacing) * 5);
+
+		@media screen and (width >= 48rem) {
+			position: sticky;
+			top: calc(var(--spacing) * 12);
+		}
+	}
+
+	.content {
+		display: flex;
+		white-space: nowrap;
+		gap: calc(var(--spacing) * 5);
+		overflow-x: auto;
+		scrollbar-width: thin;
+		padding-block-end: calc(var(--spacing) * 3);
+		margin-block-end: calc(var(--spacing) * -3);
+
+		@media screen and (width >= 48rem) {
+			flex-direction: column;
+			white-space: wrap;
+		}
+	}
+
+	.link {
+		font-weight: 800;
+	}
+}

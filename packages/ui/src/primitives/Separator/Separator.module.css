@@ -1,0 +1,19 @@
+@layer components {
+	.separator {
+		--_color: var(--separator-color, var(--color-border));
+		--_thickness: var(--separator-thickness, var(--border-width));
+
+		flex-shrink: 0;
+		background-color: var(--_color);
+
+		&[data-horizontal] {
+			height: var(--_thickness);
+			width: 100%;
+		}
+
+		&[data-vertical] {
+			width: var(--_thickness);
+			align-self: stretch;
+		}
+	}
+}

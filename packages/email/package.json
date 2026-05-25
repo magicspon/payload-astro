@@ -1,0 +1,21 @@
+{
+  "name": "@spon/email",
+  "exports": {
+    "./emails/*": "./emails/*/index.ts"
+  },
+  "devDependencies": {
+    "@react-email/preview-server": "^5.2.10",
+    "react-email": "^6.1.5"
+  },
+  "dependencies": {
+    "@payloadcms/richtext-lexical": "^3.84.1",
+    "@react-email/components": "^1.0.12",
+    "@spon/payload-types": "workspace:*",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "scripts": {
+    "dev": "email dev --port=3030",
+    "clean": "rm -rf *.tsbuildinfo node_modules"
+  }
+}

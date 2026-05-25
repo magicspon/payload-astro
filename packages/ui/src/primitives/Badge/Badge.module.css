@@ -1,0 +1,139 @@
+@layer components {
+	.badge {
+		display: inline-flex;
+		height: calc(var(--spacing) * 5);
+		width: fit-content;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		gap: calc(var(--spacing) * 1);
+		overflow: hidden;
+		border-radius: var(--radius-4xl);
+		border: 1px solid transparent;
+		padding-inline: calc(var(--spacing) * 2);
+		padding-block: calc(var(--spacing) * 0.5);
+		font-size: var(--text-xs);
+		line-height: var(--text-xs--line-height);
+		font-weight: 500;
+		white-space: nowrap;
+		transition: all 150ms;
+		outline: none;
+
+		&:focus-visible {
+			border-color: var(--color-ring);
+			box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-ring) 50%, transparent);
+		}
+
+		&[aria-invalid='true'] {
+			border-color: var(--color-destructive);
+			box-shadow: 0 0 0 3px
+				color-mix(in oklch, var(--color-destructive) 20%, transparent);
+
+			[data-theme='dark'] & {
+				box-shadow: 0 0 0 3px
+					color-mix(in oklch, var(--color-destructive) 40%, transparent);
+			}
+		}
+
+		&:has([data-icon='inline-end']) {
+			padding-right: calc(var(--spacing) * 1.5);
+		}
+
+		&:has([data-icon='inline-start']) {
+			padding-left: calc(var(--spacing) * 1.5);
+		}
+
+		& svg {
+			pointer-events: none;
+			width: calc(var(--spacing) * 3) !important;
+			height: calc(var(--spacing) * 3) !important;
+		}
+	}
+
+	.badge--default {
+		background-color: var(--color-primary);
+		color: var(--color-primary-foreground);
+
+		&:is(a):hover {
+			background-color: color-mix(in oklch, var(--color-primary) 80%, transparent);
+		}
+	}
+
+	.badge--secondary {
+		background-color: var(--color-secondary);
+		color: var(--color-secondary-foreground);
+
+		&:is(a):hover {
+			background-color: color-mix(
+				in oklch,
+				var(--color-secondary) 80%,
+				transparent
+			);
+		}
+	}
+
+	.badge--destructive {
+		background-color: color-mix(
+			in oklch,
+			var(--color-destructive) 10%,
+			transparent
+		);
+		color: var(--color-destructive);
+
+		&:focus-visible {
+			box-shadow: 0 0 0 3px
+				color-mix(in oklch, var(--color-destructive) 20%, transparent);
+		}
+
+		&:is(a):hover {
+			background-color: color-mix(
+				in oklch,
+				var(--color-destructive) 20%,
+				transparent
+			);
+		}
+
+		[data-theme='dark'] & {
+			background-color: color-mix(
+				in oklch,
+				var(--color-destructive) 20%,
+				transparent
+			);
+
+			&:focus-visible {
+				box-shadow: 0 0 0 3px
+					color-mix(in oklch, var(--color-destructive) 40%, transparent);
+			}
+		}
+	}
+
+	.badge--outline {
+		border-color: var(--color-border);
+		color: var(--color-foreground);
+
+		&:is(a):hover {
+			background-color: var(--color-muted);
+			color: var(--color-muted-foreground);
+		}
+	}
+
+	.badge--ghost {
+		&:hover {
+			background-color: var(--color-muted);
+			color: var(--color-muted-foreground);
+		}
+
+		[data-theme='dark'] &:hover {
+			background-color: color-mix(in oklch, var(--color-muted) 50%, transparent);
+		}
+	}
+
+	.badge--link {
+		color: var(--color-primary);
+		text-underline-offset: 4px;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

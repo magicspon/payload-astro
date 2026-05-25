@@ -1,0 +1,18 @@
+---
+import { sdk } from '~/lib/payload'
+import { SideBarMenu as SideBarMenuClient } from './SideBarMenu.client'
+
+interface Props {
+	id: string
+}
+
+const { id } = Astro.props
+
+const navigation = await sdk.findByID({
+	collection: 'navigation',
+	id,
+	select: { items: true },
+})
+---
+
+{navigation.items?.length && <SideBarMenuClient items={navigation.items} />}

@@ -1,0 +1,29 @@
+{
+	"name": "@spon/tailwind-config",
+	"private": true,
+	"version": "0.0.0",
+	"main": "tailwind.config.ts",
+	"types": "tailwind.config.ts",
+	"type": "module",
+	"exports": {
+		".": "./tailwind.config.ts",
+		"./theme.css": "./theme.css",
+		"./tokens.css": "./tokens.css",
+		"./animations.css": "./animations.css",
+		"./typography.css": "./typography.css",
+		"./reset.css": "./reset.css",
+		"./mq-debugger.css": "./mq-debugger.css"
+	},
+	"license": "MIT",
+	"scripts": {
+		"lint": "oxlint --deny-warnings && stylelint **/*.css",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf *.tsbuildinfo node_modules .turbo dist"
+	},
+	"devDependencies": {
+		"tailwindcss": "^4.3.0"
+	},
+	"dependencies": {
+		"@spon/typescript-config": "workspace:*"
+	}
+}

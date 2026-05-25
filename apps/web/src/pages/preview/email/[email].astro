@@ -1,0 +1,31 @@
+---
+import { NewsletterEmail } from '~/components/emails/NewsletterEmail'
+import { sdk } from '~/lib/payload'
+const { slug } = Astro.params
+import { env } from '~/env/server'
+
+const previewSecret = Astro.url.searchParams.get('previewSecret')
+const isPreview = previewSecret === env.PREVIEW_SECRET
+
+if (!isPreview) {
+  return Astro.redirect('/404')
+}
+
+const data = await sdk
+  .find({
+    collection: 'campaigns',
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+    draft: true,
+  })
+  .then((res) => res.docs[0])
+
+if (!data) {
+  return Astro.redirect('/404')
+}
+---
+
+<NewsletterEmail content={data.content} previewText={data.previewText} />

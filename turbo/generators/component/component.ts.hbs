@@ -1,0 +1,42 @@
+{{#if client}}
+'use client'
+{{/if}}
+{{#if css}}
+import styles from './{{ pascalCase func }}.module.css'
+{{/if}}
+
+import * as React from 'react'
+{{#if variants}}
+import { cva, type VariantProps } from 'class-variance-authority'
+
+const variants = cva('', {
+  variants: {
+    variant: {
+      default: '',
+      secondary: '',
+    },
+  },
+  compoundVariants: [],
+  defaultVariants: {
+    variant: 'default',
+  },
+})
+
+type T{{ pascalCase func }}Variants = VariantProps<typeof variants>
+{{/if}}
+
+type TElementProps = React.ComponentProps<'div'>
+
+{{#if variants}}
+export type T{{ pascalCase func }}Props = TElementProps & T{{ pascalCase func }}Variants & {
+	//
+}
+{{else}}
+export type T{{ pascalCase func }}Props = TElementProps & {
+	//
+}
+{{/if}}
+
+export function {{ pascalCase func }}({{#if variants }}{className, variant, ...props}{{else}}props{{/if}}: T{{ pascalCase func }}Props) {
+	return <div{{#if variants }} className={variants({ className, variant })}{{/if}} data-testid="{{ pascalCase func }}" {...props} />
+}

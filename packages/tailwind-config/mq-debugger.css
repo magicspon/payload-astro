@@ -1,0 +1,56 @@
+/* Media query breakpoint debugger — shows current breakpoint label in the corner */
+
+:root {
+	--mq-label: 'root';
+}
+
+.mq-debugger {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+
+	&::before {
+		background-color: hsl(0 0 0 / 30%);
+		color: #f1f1f1;
+		z-index: 1000;
+		padding-block: calc(var(--spacing) * 2) !important;
+		padding-inline: calc(var(--spacing) * 2) !important;
+		font-size: var(--text-xs);
+		content: var(--mq-label);
+	}
+}
+
+/* 640px */
+@media (width >= 40rem) {
+	:root {
+		--mq-label: 'sm / 40rem';
+	}
+}
+
+/* 768px */
+@media (width >= 48rem) {
+	:root {
+		--mq-label: 'tablet / 48rem';
+	}
+}
+
+/* 1024px */
+@media (width >= 64rem) {
+	:root {
+		--mq-label: 'desktop / 64rem';
+	}
+}
+
+/* 1280px */
+@media (width >= 80rem) {
+	:root {
+		--mq-label: 'hd / 80rem';
+	}
+}
+
+/* 1536px */
+@media (width >= 96rem) {
+	:root {
+		--mq-label: 'wide / 96rem';
+	}
+}

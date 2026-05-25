@@ -1,0 +1,7 @@
+{
+	"extends": "@spon/typescript-config/base.json",
+	"compilerOptions": {
+		"skipLibCheck": true,
+		"moduleResolution": "Bundler"
+	}
+}

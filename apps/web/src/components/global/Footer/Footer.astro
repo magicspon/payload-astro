@@ -1,0 +1,16 @@
+---
+import { sdk } from '~/lib/payload'
+const navigation = await sdk
+	.find({
+		collection: 'navigation',
+		where: { slug: { equals: 'footer-menu' } },
+		select: { items: true },
+	})
+	.then((r) => r.docs[0])
+---
+
+<footer id="footer" class="px-5 py-4">
+	<div class="flex flex-col gap-5">
+		{navigation.items?.map((item) => <a href={item.href}>{item.title}</a>)}
+	</div>
+</footer>

@@ -1,0 +1,7 @@
+{
+	"plugins": ["react", "unicorn", "typescript", "oxc"],
+	"ignorePatterns": ["migrations", "_generated"],
+	"rules": {
+		"typescript/triple-slash-reference": "off"
+	}
+}

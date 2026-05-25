@@ -1,0 +1,12 @@
+---
+import Layout from '~/layouts/Layout.astro'
+interface Props {
+	error: unknown
+}
+
+const { error } = Astro.props
+---
+
+<Layout meta={{ title: 'Ah shit!' }}>
+	<div>{error instanceof Error ? error.message : 'Unknown error'}</div>
+</Layout>

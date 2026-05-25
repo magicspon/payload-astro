@@ -1,0 +1,21 @@
+/*
+	CSS Rules... use tailwind utility classes sparingly
+	If an element requires more than three styles, opt for
+	a class name instead. Use css modules
+
+	Prefer container queries over media queries
+
+	Use CSS variables for everything.
+*/
+
+@import 'tailwindcss';
+@import '@spon/tailwind-config/theme.css';
+@import '@spon/tailwind-config/animations.css';
+@import '@spon/tailwind-config/typography.css';
+
+@source '../';
+
+@theme inline {
+	--font-sans: var(--font-sans);
+	--font-mono: var(--font-geist-mono);
+}

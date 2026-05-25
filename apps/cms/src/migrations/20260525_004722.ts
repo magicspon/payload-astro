@@ -1,0 +1,125 @@
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+
+export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+  await db.execute(sql`
+   CREATE TYPE "public"."enum_pages_blocks_text_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_pages_blocks_form_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_pages_blocks_related_blocks_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_pages_blocks_image_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_pages_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__pages_v_blocks_text_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__pages_v_blocks_form_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__pages_v_blocks_related_blocks_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__pages_v_blocks_image_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__pages_v_version_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_posts_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__posts_v_version_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_home_blocks_text_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_home_blocks_form_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_home_blocks_related_blocks_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_home_blocks_image_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum_home_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__home_v_blocks_text_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__home_v_blocks_form_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__home_v_blocks_related_blocks_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__home_v_blocks_image_block_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  CREATE TYPE "public"."enum__home_v_version_theme" AS ENUM('light', 'dark', 'primary', 'secondary', 'tertiary');
+  ALTER TYPE "public"."enum_pages_blocks_form_block_variant" ADD VALUE 'tertiary';
+  ALTER TYPE "public"."enum__pages_v_blocks_form_block_variant" ADD VALUE 'tertiary';
+  ALTER TYPE "public"."enum_home_blocks_form_block_variant" ADD VALUE 'tertiary';
+  ALTER TYPE "public"."enum__home_v_blocks_form_block_variant" ADD VALUE 'tertiary';
+  ALTER TABLE "pages_blocks_text_block" ADD COLUMN "theme" "enum_pages_blocks_text_block_theme" DEFAULT 'light';
+  ALTER TABLE "pages_blocks_form_block" ADD COLUMN "theme" "enum_pages_blocks_form_block_theme" DEFAULT 'light';
+  ALTER TABLE "pages_blocks_related_blocks" ADD COLUMN "theme" "enum_pages_blocks_related_blocks_theme" DEFAULT 'light';
+  ALTER TABLE "pages_blocks_image_block" ADD COLUMN "theme" "enum_pages_blocks_image_block_theme" DEFAULT 'light';
+  ALTER TABLE "pages" ADD COLUMN "theme" "enum_pages_theme" DEFAULT 'light';
+  ALTER TABLE "_pages_v_blocks_text_block" ADD COLUMN "theme" "enum__pages_v_blocks_text_block_theme" DEFAULT 'light';
+  ALTER TABLE "_pages_v_blocks_form_block" ADD COLUMN "theme" "enum__pages_v_blocks_form_block_theme" DEFAULT 'light';
+  ALTER TABLE "_pages_v_blocks_related_blocks" ADD COLUMN "theme" "enum__pages_v_blocks_related_blocks_theme" DEFAULT 'light';
+  ALTER TABLE "_pages_v_blocks_image_block" ADD COLUMN "theme" "enum__pages_v_blocks_image_block_theme" DEFAULT 'light';
+  ALTER TABLE "_pages_v" ADD COLUMN "version_theme" "enum__pages_v_version_theme" DEFAULT 'light';
+  ALTER TABLE "posts" ADD COLUMN "theme" "enum_posts_theme" DEFAULT 'light';
+  ALTER TABLE "_posts_v" ADD COLUMN "version_theme" "enum__posts_v_version_theme" DEFAULT 'light';
+  ALTER TABLE "home_blocks_text_block" ADD COLUMN "theme" "enum_home_blocks_text_block_theme" DEFAULT 'light';
+  ALTER TABLE "home_blocks_form_block" ADD COLUMN "theme" "enum_home_blocks_form_block_theme" DEFAULT 'light';
+  ALTER TABLE "home_blocks_related_blocks" ADD COLUMN "theme" "enum_home_blocks_related_blocks_theme" DEFAULT 'light';
+  ALTER TABLE "home_blocks_image_block" ADD COLUMN "theme" "enum_home_blocks_image_block_theme" DEFAULT 'light';
+  ALTER TABLE "home" ADD COLUMN "theme" "enum_home_theme" DEFAULT 'light';
+  ALTER TABLE "_home_v_blocks_text_block" ADD COLUMN "theme" "enum__home_v_blocks_text_block_theme" DEFAULT 'light';
+  ALTER TABLE "_home_v_blocks_form_block" ADD COLUMN "theme" "enum__home_v_blocks_form_block_theme" DEFAULT 'light';
+  ALTER TABLE "_home_v_blocks_related_blocks" ADD COLUMN "theme" "enum__home_v_blocks_related_blocks_theme" DEFAULT 'light';
+  ALTER TABLE "_home_v_blocks_image_block" ADD COLUMN "theme" "enum__home_v_blocks_image_block_theme" DEFAULT 'light';
+  ALTER TABLE "_home_v" ADD COLUMN "version_theme" "enum__home_v_version_theme" DEFAULT 'light';`)
+}
+
+export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
+  await db.execute(sql`
+   ALTER TABLE "pages_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE text;
+  ALTER TABLE "pages_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::text;
+  DROP TYPE "public"."enum_pages_blocks_form_block_variant";
+  CREATE TYPE "public"."enum_pages_blocks_form_block_variant" AS ENUM('primary', 'secondary');
+  ALTER TABLE "pages_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::"public"."enum_pages_blocks_form_block_variant";
+  ALTER TABLE "pages_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE "public"."enum_pages_blocks_form_block_variant" USING "variant"::"public"."enum_pages_blocks_form_block_variant";
+  ALTER TABLE "_pages_v_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE text;
+  ALTER TABLE "_pages_v_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::text;
+  DROP TYPE "public"."enum__pages_v_blocks_form_block_variant";
+  CREATE TYPE "public"."enum__pages_v_blocks_form_block_variant" AS ENUM('primary', 'secondary');
+  ALTER TABLE "_pages_v_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::"public"."enum__pages_v_blocks_form_block_variant";
+  ALTER TABLE "_pages_v_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE "public"."enum__pages_v_blocks_form_block_variant" USING "variant"::"public"."enum__pages_v_blocks_form_block_variant";
+  ALTER TABLE "home_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE text;
+  ALTER TABLE "home_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::text;
+  DROP TYPE "public"."enum_home_blocks_form_block_variant";
+  CREATE TYPE "public"."enum_home_blocks_form_block_variant" AS ENUM('primary', 'secondary');
+  ALTER TABLE "home_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::"public"."enum_home_blocks_form_block_variant";
+  ALTER TABLE "home_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE "public"."enum_home_blocks_form_block_variant" USING "variant"::"public"."enum_home_blocks_form_block_variant";
+  ALTER TABLE "_home_v_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE text;
+  ALTER TABLE "_home_v_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::text;
+  DROP TYPE "public"."enum__home_v_blocks_form_block_variant";
+  CREATE TYPE "public"."enum__home_v_blocks_form_block_variant" AS ENUM('primary', 'secondary');
+  ALTER TABLE "_home_v_blocks_form_block" ALTER COLUMN "variant" SET DEFAULT 'primary'::"public"."enum__home_v_blocks_form_block_variant";
+  ALTER TABLE "_home_v_blocks_form_block" ALTER COLUMN "variant" SET DATA TYPE "public"."enum__home_v_blocks_form_block_variant" USING "variant"::"public"."enum__home_v_blocks_form_block_variant";
+  ALTER TABLE "pages_blocks_text_block" DROP COLUMN "theme";
+  ALTER TABLE "pages_blocks_form_block" DROP COLUMN "theme";
+  ALTER TABLE "pages_blocks_related_blocks" DROP COLUMN "theme";
+  ALTER TABLE "pages_blocks_image_block" DROP COLUMN "theme";
+  ALTER TABLE "pages" DROP COLUMN "theme";
+  ALTER TABLE "_pages_v_blocks_text_block" DROP COLUMN "theme";
+  ALTER TABLE "_pages_v_blocks_form_block" DROP COLUMN "theme";
+  ALTER TABLE "_pages_v_blocks_related_blocks" DROP COLUMN "theme";
+  ALTER TABLE "_pages_v_blocks_image_block" DROP COLUMN "theme";
+  ALTER TABLE "_pages_v" DROP COLUMN "version_theme";
+  ALTER TABLE "posts" DROP COLUMN "theme";
+  ALTER TABLE "_posts_v" DROP COLUMN "version_theme";
+  ALTER TABLE "home_blocks_text_block" DROP COLUMN "theme";
+  ALTER TABLE "home_blocks_form_block" DROP COLUMN "theme";
+  ALTER TABLE "home_blocks_related_blocks" DROP COLUMN "theme";
+  ALTER TABLE "home_blocks_image_block" DROP COLUMN "theme";
+  ALTER TABLE "home" DROP COLUMN "theme";
+  ALTER TABLE "_home_v_blocks_text_block" DROP COLUMN "theme";
+  ALTER TABLE "_home_v_blocks_form_block" DROP COLUMN "theme";
+  ALTER TABLE "_home_v_blocks_related_blocks" DROP COLUMN "theme";
+  ALTER TABLE "_home_v_blocks_image_block" DROP COLUMN "theme";
+  ALTER TABLE "_home_v" DROP COLUMN "version_theme";
+  DROP TYPE "public"."enum_pages_blocks_text_block_theme";
+  DROP TYPE "public"."enum_pages_blocks_form_block_theme";
+  DROP TYPE "public"."enum_pages_blocks_related_blocks_theme";
+  DROP TYPE "public"."enum_pages_blocks_image_block_theme";
+  DROP TYPE "public"."enum_pages_theme";
+  DROP TYPE "public"."enum__pages_v_blocks_text_block_theme";
+  DROP TYPE "public"."enum__pages_v_blocks_form_block_theme";
+  DROP TYPE "public"."enum__pages_v_blocks_related_blocks_theme";
+  DROP TYPE "public"."enum__pages_v_blocks_image_block_theme";
+  DROP TYPE "public"."enum__pages_v_version_theme";
+  DROP TYPE "public"."enum_posts_theme";
+  DROP TYPE "public"."enum__posts_v_version_theme";
+  DROP TYPE "public"."enum_home_blocks_text_block_theme";
+  DROP TYPE "public"."enum_home_blocks_form_block_theme";
+  DROP TYPE "public"."enum_home_blocks_related_blocks_theme";
+  DROP TYPE "public"."enum_home_blocks_image_block_theme";
+  DROP TYPE "public"."enum_home_theme";
+  DROP TYPE "public"."enum__home_v_blocks_text_block_theme";
+  DROP TYPE "public"."enum__home_v_blocks_form_block_theme";
+  DROP TYPE "public"."enum__home_v_blocks_related_blocks_theme";
+  DROP TYPE "public"."enum__home_v_blocks_image_block_theme";
+  DROP TYPE "public"."enum__home_v_version_theme";`)
+}

@@ -1,0 +1,11 @@
+import { expect, it, describe } from 'vitest'
+import { renderHook } from '@testing-library/react'
+import { use{{ pascalCase func }} } from '.';
+
+describe('use{{ pascalCase func }}', () => {
+  it('renders', () => {
+		const { result } = renderHook(() => use{{ pascalCase func }}({}))
+
+		expect(result).toBeDefined()
+  });
+});

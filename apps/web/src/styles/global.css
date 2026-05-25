@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+@import '@spon/tailwind-config/theme.css';
+@import '@spon/tailwind-config/animations.css';
+@import '@spon/tailwind-config/typography.css';
+@import '@spon/tailwind-config/mq-debugger.css';
+@import './colors.css';
+@import './tokens.css';
+
+@source '../';
+@source '../../../../packages/ui/src';
+
+@theme inline {
+	--font-sans: var(--font-raleway);
+	--font-serif: var(--font-bitter);
+}
+
+html {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	color: var(--color-foreground);
+	background: var(--color-background);
+	min-height: 100dvh;
+	position: relative;
+	font-family: var(--font-raleway);
+}

@@ -1,0 +1,28 @@
+{
+	"extends": ["@spon/typescript-config/react"],
+	"compilerOptions": {
+		"checkJs": true,
+		"plugins": [
+			{
+				"name": "next",
+			},
+		],
+		"paths": {
+			"react": ["./node_modules/@types/react"],
+			"@/*": ["./src/*"],
+			"@ui/*": ["../../packages/ui/src/*"],
+			"@email/*": ["../../packages/email/emails/*"],
+			"@payload-config": ["./src/payload.config.ts"],
+		},
+		"target": "ES2022",
+		"jsx": "preserve",
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"src/types.d.ts",
+	],
+	"exclude": ["node_modules"],
+}

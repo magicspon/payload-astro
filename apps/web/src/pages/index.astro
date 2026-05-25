@@ -1,0 +1,32 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SideBarMenu from '~/components/global/SideBarMenu/SideBarMenu.astro'
+import { sdk } from '~/lib/payload'
+import type { DangerouslyExpandRelations } from '~/utils/typeHelpers'
+import type { Home as HomeType } from '@spon/payload-types'
+import { env } from '~/env/server'
+import Hero from '~/components/blocks/Hero/Hero.astro'
+import Blocks from '~/components/blocks/Blocks.astro'
+
+const previewSecret = Astro.url.searchParams.get('previewSecret')
+const isPreview = previewSecret === env.PREVIEW_SECRET
+
+const result = await sdk.findGlobal({
+	slug: 'home',
+	draft: isPreview,
+	select: {
+		title: true,
+		meta: true,
+		blocks: true,
+	},
+})
+
+const page = result as DangerouslyExpandRelations<HomeType>
+const hero = page.blocks?.find((b) => b.blockType === 'hero')
+const blocks = page.blocks?.filter((b) => b.blockType !== 'hero')
+---
+
+<Layout meta={page.meta} theme={page.theme}>
+	{hero && <Hero {...hero} slot="hero" />}
+	{blocks && <Blocks blocks={blocks} />}
+</Layout>

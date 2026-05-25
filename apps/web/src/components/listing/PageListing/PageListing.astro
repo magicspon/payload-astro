@@ -1,0 +1,12 @@
+---
+import { Page } from '@spon/payload-types'
+
+interface Props {
+	entries?: Page[]
+	type: 'pages' | 'children'
+}
+
+const { entries } = Astro.props
+---
+
+<pre>{JSON.stringify(entries, null, 2)}</pre>

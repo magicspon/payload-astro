@@ -1,0 +1,136 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        ".output/**",
+        "build/**",
+        "!build/cache/**"
+      ],
+      "env": ["NODE_ENV"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": []
+    },
+    "storybook": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", ".eslintignore"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "tsconfig.json",
+        "src/**/*.ts",
+        "src/**/*.tsx"
+      ]
+    },
+    "clean": {
+      "cache": false
+    },
+    "auth:generate": {
+      "cache": false,
+      "inputs": ["src/auth.ts"],
+      "outputs": ["src/db/schema.ts"],
+      "env": ["DATABASE_URL"]
+    },
+    "db:generate": {
+      "cache": false,
+      "inputs": ["src/db/schema.ts", "drizzle.config.ts"],
+      "outputs": ["src/db/migrations/**"],
+      "env": ["DATABASE_URL"]
+    },
+    "db:migrate": {
+      "dependsOn": ["db:generate"],
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true,
+      "env": ["DATABASE_URL"]
+    },
+    "db:push": {
+      "dependsOn": ["^db:push"],
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "generate:types": {
+      "cache": false,
+      "inputs": ["src/payload.config.ts", "src/cms/**"],
+      "outputs": ["src/cms/_generated/payload-types.ts"],
+      "env": ["DATABASE_URL"]
+    },
+    "generate:importmap": {
+      "cache": false,
+      "inputs": ["src/payload.config.ts"],
+      "outputs": ["src/app/(payload)/admin/importMap.js"],
+      "env": ["DATABASE_URL"]
+    },
+    "generate:db-schema": {
+      "cache": false,
+      "inputs": ["src/payload.config.ts", "src/collections/**"],
+      "outputs": ["src/payload-generated-schema.ts"],
+      "env": ["DATABASE_URL"]
+    },
+    "payload": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "seed": {
+      "dependsOn": ["generate:types"],
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "create-stub": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "ci": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "src/migrations/**"],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        ".output/**",
+        "build/**",
+        "!build/cache/**"
+      ],
+      "env": ["NODE_ENV", "DATABASE_URL"]
+    }
+  },
+  "globalDependencies": [
+    "package-lock.json",
+    ".env",
+    ".env.local",
+    ".env.production"
+  ],
+  "globalEnv": [
+    "NODE_ENV",
+    "DATABASE_URL",
+    "PAYLOAD_SECRET",
+    "PREVIEW_SECRET",
+    "S3_BUCKET",
+    "S3_BUCKET_REGION",
+    "S3_ACCESS_KEY_ID",
+    "S3_SECRET_ACCESS_KEY",
+
+    "NEXT_PUBLIC_FRONTEND_URL",
+    "PAYLOAD_BEARER_TOKEN",
+    "CMS_URL"
+  ]
+}

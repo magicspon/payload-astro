@@ -1,0 +1,51 @@
+@layer components {
+	.list {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: calc(var(--spacing) * 1.5);
+		font-size: var(--text-sm);
+		line-height: var(--text-sm--line-height);
+		overflow-wrap: break-word;
+		color: var(--color-muted-foreground);
+	}
+
+	.item {
+		display: inline-flex;
+		align-items: center;
+		gap: calc(var(--spacing) * 1);
+	}
+
+	.link {
+		transition: color 150ms;
+
+		&:hover {
+			color: var(--color-foreground);
+		}
+	}
+
+	.page {
+		font-weight: 400;
+		color: var(--color-foreground);
+	}
+
+	.separator {
+		& > svg {
+			width: calc(var(--spacing) * 3);
+			height: calc(var(--spacing) * 3);
+		}
+	}
+
+	.ellipsis {
+		display: flex;
+		width: calc(var(--spacing) * 6);
+		height: calc(var(--spacing) * 6);
+		align-items: center;
+		justify-content: center;
+
+		& > svg {
+			width: 1rem;
+			height: 1rem;
+		}
+	}
+}

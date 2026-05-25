@@ -1,0 +1,6 @@
+
+{{#if astro}}
+export * from './{{ pascalCase func }}.client'
+{{else}}
+export * from './{{ pascalCase func }}'
+{{/if}}

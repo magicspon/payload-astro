@@ -1,0 +1,13 @@
+{
+	"extends": ["@spon/typescript-config/react.json"],
+	"compilerOptions": {
+		"paths": {
+			"@ui/*": ["./src/*"],
+		},
+		"types": [""],
+		"target": "ES2022",
+		"jsx": "preserve",
+	},
+	"include": ["**/*.ts", "**/*.tsx", "**/*.js", ".storybook/**/*"],
+	"exclude": ["node_modules", "dist", "storybook-static"],
+}

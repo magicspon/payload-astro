@@ -1,0 +1,112 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  NODE_VERSION: 22
+
+jobs:
+  e2e:
+    name: Playwright E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: e2e
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: spon
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/spon
+
+      # Secrets from the e2e GitHub environment
+      PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+      PAYLOAD_BEARER_TOKEN: ${{ secrets.PAYLOAD_BEARER_TOKEN }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+      GITHUB_AUTH_CLIENT_ID: ${{ secrets.AUTH_CLIENT_ID }}
+      GITHUB_AUTH_CLIENT_SECRET: ${{ secrets.AUTH_CLIENT_SECRET }}
+
+      # URLs — all localhost in CI
+      BETTER_AUTH_URL: http://localhost:3000
+      CMS_URL: http://localhost:3000
+      CLIENT_URL: http://localhost:3000
+      NEXT_PUBLIC_CMS_URL: http://localhost:3000
+
+      # Dummy values — not exercised by form builder e2e tests
+      S3_BUCKET: ci-bucket
+      S3_BUCKET_REGION: us-east-1
+      S3_ACCESS_KEY_ID: ci-access-key
+      S3_SECRET_ACCESS_KEY: ci-secret-key
+      S3_ENDPOINT: http://localhost:9000
+      PREVIEW_SECRET: ci-preview-secret
+      PLAUSIBLE_API_KEY: ci-plausible-key
+      PLAUSIBLE_API_HOST: http://localhost:8000
+      NEXT_PUBLIC_PLAUSIBLE_DOMAIN: localhost
+      NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL: http://localhost:8000/js/script.js
+      USE_SEND_API_KEY: ci-use-send-key
+      USE_SEND_URL: http://localhost:2500
+      TEST_ENV: 'true'
+
+      # Hardcoded e2e admin credentials (non-sensitive, CI-only DB)
+      E2E_ADMIN_EMAIL: ci-admin@example.com
+      E2E_ADMIN_PASSWORD: ci-password-123
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.20.0
+
+      - name: Get pnpm store directory
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm e2e:install
+
+      - name: Run DB migrations
+        run: pnpm --filter=@spon/cms exec payload migrate
+
+      - name: Seed CI admin user
+        run: pnpm --filter=@spon/cms seed:ci
+
+      - name: Run E2E tests
+        run: pnpm e2e:ci
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

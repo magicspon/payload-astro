@@ -1,0 +1,31 @@
+---
+import FormEntry from '~/components/forms/Form/Form.astro'
+import Layout from '~/layouts/Layout.astro'
+import { sdk } from '~/lib/payload'
+import { env } from '~/env/server'
+
+const previewSecret = Astro.url.searchParams.get('previewSecret')
+const isPreview = previewSecret === env.PREVIEW_SECRET
+
+if (!isPreview) {
+  return Astro.redirect('/404')
+}
+
+const { slug } = Astro.params
+
+const data = await sdk
+  .find({
+    collection: 'form',
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+    draft: true,
+  })
+  .then((res) => res.docs[0])
+---
+
+<Layout meta={{ title: 'Form Preview' }}>
+  <FormEntry {...data} />
+</Layout>

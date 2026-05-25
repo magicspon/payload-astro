@@ -1,0 +1,101 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { sdk } from '~/lib/payload'
+import Article from '~/templates/Article.astro'
+import Contact from '~/templates/Contact.astro'
+import Listing from '~/templates/Listing.astro'
+import { env } from '~/env/server'
+import Page from '~/templates/Page.astro'
+import type { DangerouslyExpandRelations } from '~/utils/typeHelpers'
+import type { Page as PageType } from '@spon/payload-types'
+import Hero from '~/components/blocks/Hero/Hero.astro'
+import SideBarMenu from '~/components/global/SideBarMenu/SideBarMenu.astro'
+import { parseTemplateProps } from '~/utils/parseTemplateProps'
+import { match } from 'ts-pattern'
+
+const { page: uri } = Astro.params
+
+const previewSecret = Astro.url.searchParams.get('previewSecret')
+const isPreview = previewSecret === env.PREVIEW_SECRET
+
+const slug = uri?.split('/').at(-1)
+const url = `/${uri}`
+
+const response = await sdk
+	.find({
+		collection: 'pages',
+		where: {
+			and: [
+				{
+					slug: {
+						equals: slug,
+					},
+				},
+				{
+					'breadcrumbs.url': {
+						equals: url,
+					},
+				},
+			],
+
+			...(isPreview ? { _status: { equals: 'draft' } } : {}),
+		},
+		limit: 1,
+		draft: isPreview,
+		select: {
+			meta: true,
+			breadcrumbs: true,
+			listing: true,
+			article: true,
+			contact: true,
+			template: true,
+			title: true,
+			blocks: true,
+			menu: true,
+		},
+		populate: {
+			navigation: {
+				title: true,
+			},
+		},
+	})
+	.then((r) => r.docs[0])
+
+const page = response as DangerouslyExpandRelations<PageType>
+if (!page) return Astro.redirect('/404')
+const sideBarId = page.menu?.id
+
+const hero =
+	page.article?.blocks?.find((b) => b.blockType === 'hero') ??
+	page.contact?.blocks?.find((b) => b.blockType === 'hero') ??
+	page.blocks?.find((b) => b.blockType === 'hero')
+
+const pageData = parseTemplateProps(page)
+---
+
+<Layout meta={page.meta} theme="light">
+	{hero && <Hero {...hero} slot="hero" />}
+	{sideBarId && <SideBarMenu id={sideBarId} slot="side" />}
+
+	<article class="page-wrapper">
+		{
+			match(pageData)
+				.with({ template: 'default' }, (props) => (
+					<Page blocks={props.blocks?.filter((d) => d.id !== hero?.id)} />
+				))
+				.with({ template: 'listing' }, (props) => (
+					<Listing
+						blocks={props.blocks?.filter((d) => d.id !== hero?.id)}
+						{...page.listing}
+					/>
+				))
+				.with({ template: 'article' }, (props) => (
+					<Article blocks={props.blocks?.filter((d) => d.id !== hero?.id)} />
+				))
+				.with({ template: 'contact' }, (props) => (
+					<Contact blocks={props.blocks?.filter((d) => d.id !== hero?.id)} />
+				))
+				.otherwise((props) => console.warn('[block not found]'))
+		}
+	</article>
+</Layout>

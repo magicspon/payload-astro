@@ -1,0 +1,28 @@
+{
+	"name": "@spon/hooks",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"lint": "oxlint",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf *.tsbuildinfo node_modules"
+	},
+	"exports": {
+		"./*": [
+			"./src/*/index.ts",
+			"./src/*.ts"
+		]
+	},
+	"devDependencies": {
+		"@spon/typescript-config": "workspace:*",
+		"@types/node": "^25.9.1",
+		"@types/react": "^19.2.15",
+		"@types/react-dom": "^19.2.2",
+		"typescript": "^6.0.3"
+	},
+	"dependencies": {
+		"react": "^19.2.6",
+		"usehooks-ts": "^3.1.1"
+	}
+}

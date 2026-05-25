@@ -1,0 +1,33 @@
+---
+import { type Post } from '@spon/payload-types'
+import Layout from '~/layouts/Layout.astro'
+import { sdk } from '~/lib/payload'
+import { DangerouslyExpandRelations } from '~/utils/typeHelpers'
+const { post: slug } = Astro.params
+import { env } from '~/env/server'
+
+const previewSecret = Astro.url.searchParams.get('previewSecret')
+const isPreview = previewSecret === env.PREVIEW_SECRET
+
+const data = await sdk.find({
+	collection: 'posts',
+	where: {
+		slug: {
+			equals: slug,
+		},
+		...(isPreview ? { _status: { equals: 'draft' } } : {}),
+	},
+	select: {
+		meta: true,
+	},
+	draft: isPreview,
+	limit: 1,
+})
+
+const page = data.docs[0] as DangerouslyExpandRelations<Post>
+if (!page) return Astro.redirect('/404')
+---
+
+<Layout meta={page.meta} theme={page.theme}>
+	<pre>{JSON.stringify(page, null, 2)}</pre>
+</Layout>

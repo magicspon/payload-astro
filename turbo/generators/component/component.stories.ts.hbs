@@ -1,0 +1,45 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import * as React from 'react'
+import { {{ pascalCase func }} } from '.'
+{{#if stub}}
+import { content } from './{{ pascalCase func }}.stub'
+{{/if}}
+
+
+const meta = {
+	title: 'component/{{ pascalCase func }}',
+	component: {{ pascalCase func }},
+	parameters: {
+    layout: 'fullscreen',
+	},
+	tags: ['autodocs'],
+	argTypes: {},
+	args: {},
+} satisfies Meta<typeof {{ pascalCase func }}>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+{{#if stub}}
+export const Primary: Story = {
+	args: content,
+}
+{{else}}
+export const Primary: Story = {
+	args: {
+		children: 'Hello world',
+	},
+}
+{{/if}}
+
+
+
+
+/*
+export const Primary: Story = {
+	args: {},
+	render: () => (
+		<{{ pascalCase func }} />
+	),
+}
+*/

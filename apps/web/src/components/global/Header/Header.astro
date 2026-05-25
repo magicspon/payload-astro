@@ -1,0 +1,53 @@
+---
+import { buttonVariants } from '@spon/ui/primitives/Button'
+import styles from './Header.module.css'
+import { sdk } from '~/lib/payload'
+const navigation = await sdk
+	.find({
+		collection: 'navigation',
+		where: { slug: { equals: 'main-menu' } },
+		select: { items: true },
+	})
+	.then((r) => r.docs[0])
+---
+
+<header data-component="header" class={styles.header}>
+	<a href="/" class={styles.logo}>Spon.io</a>
+	<nav class={styles.nav}>
+		{
+			navigation.items?.map((item) => (
+				<a class={styles.link} href={item.href}>
+					{item.title}
+				</a>
+			))
+		}
+	</nav>
+	<div class={styles.contact}>
+		<a href="#footer" class={buttonVariants({ variant: 'default' })}>Contact</a>
+	</div>
+	<button
+		data-node="burger"
+		class={styles.burger}
+		type="button"
+		popovertarget="main-navigation"
+	>
+		Open dialog
+	</button>
+
+	<dialog id="main-navigation" class={styles.dialog} popover>
+		<div class={styles.dialog__wrapper}>
+			<nav class={styles.mobileNav}>
+				{navigation.items?.map((item) => <a href={item.href}>{item.title}</a>)}
+			</nav>
+			<button
+				data-node="burger"
+				class={styles.dialog__close}
+				type="button"
+				popovertarget="main-navigation"
+				popovertargetaction="hide"
+			>
+				Open dialog
+			</button>
+		</div>
+	</dialog>
+</header>

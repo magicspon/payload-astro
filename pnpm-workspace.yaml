@@ -1,0 +1,15 @@
+packages:
+  - apps/**
+  - packages/**
+
+allowBuilds:
+  canvas: false
+  esbuild: true
+  sharp: true
+
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - '@tailwindcss/oxide'
+  - core-js-pure
+
+injectWorkspacePackages: true
