@@ -1,7 +1,6 @@
 ---
-import type { Page } from '@spon/payload-types'
+import Blocks from '~/components/blocks/Blocks.astro'
 import { BlockProps } from '~/types'
-import type { DangerouslyExpandRelations } from '~/utils/typeHelpers'
 
 interface Props {
 	blocks?: BlockProps
@@ -10,20 +9,5 @@ const { blocks } = Astro.props
 ---
 
 <>
-	{
-		blocks?.map((block) => (
-			<>
-				{(() => {
-					switch (block.blockType) {
-						case 'hero':
-							return <pre>{JSON.stringify(block, null, 2)}</pre>
-						case 'textBlock':
-							return <pre>{JSON.stringify(block, null, 2)}</pre>
-						default:
-							return null
-					}
-				})()}
-			</>
-		))
-	}
+	{blocks && <Blocks blocks={blocks} />}
 </>

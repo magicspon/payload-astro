@@ -77,7 +77,7 @@ const pageData = parseTemplateProps(page)
 	{hero && <Hero {...hero} slot="hero" />}
 	{sideBarId && <SideBarMenu id={sideBarId} slot="side" />}
 
-	<article class="page-wrapper">
+	<article class="page-wrapper" data-template={pageData?.template}>
 		{
 			match(pageData)
 				.with({ template: 'default' }, (props) => (

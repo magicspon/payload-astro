@@ -1,8 +1,6 @@
 ---
-import type { Page } from '@spon/payload-types'
 import Blocks from '~/components/blocks/Blocks.astro'
 import { BlockProps } from '~/types'
-import type { DangerouslyExpandRelations } from '~/utils/typeHelpers'
 
 interface Props {
 	blocks?: BlockProps
@@ -10,4 +8,6 @@ interface Props {
 const { blocks } = Astro.props
 ---
 
-{blocks && <Blocks blocks={blocks} />}
+<>
+	{blocks && <Blocks blocks={blocks} />}
+</>

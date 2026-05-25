@@ -55,10 +55,7 @@ const seoProps: SeoProps = deepMerge(parseSeo(result.meta), parseSeo(meta))
 	<body data-theme={theme}>
 		<Header theme={theme} />
 		<slot name="hero" />
-		<main
-			data-theme={theme}
-			class={cn('isolate bg-background text-foreground', styles.main)}
-		>
+		<main data-theme={theme} class={styles.main}>
 			<slot name="side" />
 			<slot />
 		</main>

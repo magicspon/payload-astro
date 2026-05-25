@@ -5,6 +5,9 @@
 		flex: 1;
 		position: relative;
 		overflow-x: clip;
+		isolation: isolate;
+		color: var(--color-foreground);
+		background: var(--color-background);
 
 		/* tablet */
 		@media screen and (width >= 48rem) {
